@@ -1,33 +1,38 @@
 import React from 'react'
 
-function SortPopup({items}) {
+function SortPopup({items, onClick}) {
     const [visiblePopup, setVisiblePopup] = React.useState(false)
     const [activeItems, setActiveItems] = React.useState(0)
+    const activeLabel = items[activeItems]
+    const sortRef = React.useRef();
     const toggleVisiblePopup = () => {
         setVisiblePopup(!visiblePopup)
     }
     const onSelectedItems = (index) => {
       setActiveItems(index)
+      setVisiblePopup(false)
     }
-  
-    const sortRef = React.useRef();
+ 
 
-    const handleOutSidePopup = (e) => {
+    const handleOutSideClick = (e) => {
         if(!e.path.includes(sortRef.current)) {
           setVisiblePopup(false)
+          console.log('outside')
         }
+      
     }
 
     React.useEffect(() => {
-      document.body.addEventListener("click", handleOutSidePopup);
+      document.body.addEventListener('click', handleOutSideClick)
 
-    },[])
+    },[]);
 
 
     return (
         <div ref={sortRef} className="sort"> 
               <div className="sort__label">
-                <svg
+                <svg 
+                  className={visiblePopup ? 'rotated' : ''}
                   width="10"
                   height="6"
                   viewBox="0 0 10 6"
@@ -39,7 +44,7 @@ function SortPopup({items}) {
                   />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={toggleVisiblePopup}>популярности</span>
+                <span onClick={toggleVisiblePopup}>{activeLabel}</span>
               </div>
               {visiblePopup && (<div className="sort__popup">
                 <ul>
