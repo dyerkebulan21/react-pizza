@@ -1,30 +1,5 @@
 import React from 'react'
 
-// export default class Categories extends React.Component {
-//     state = {
-//         activeItem: null,
-//     };
-//     onSelectedItem = (index) => {
-//         this.setState({
-//             activeItem: index,
-//         })
-//     }
-//     render() {
-//         const {onClickItem, items} = this.props
-//         return (
-//                 <div className="categories">
-//               <ul>
-//                 <li className="active">Все</li>
-//               {
-//                items.map((item,index) => {
-//                return  <li className={this.state.activeItem === index ? 'active' : ''}  onClick={() => this.onSelectedItem(index)} key={`${item}_${index}`} >{item}</li>
-//                })   
-//               } 
-//               </ul>
-//             </div>
-//         )
-//     }
-// }
 
 
 
