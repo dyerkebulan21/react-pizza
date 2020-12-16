@@ -17,7 +17,6 @@ function SortPopup({items, onClick}) {
     const handleOutSideClick = (e) => {
         if(!e.path.includes(sortRef.current)) {
           setVisiblePopup(false)
-          console.log('outside')
         }
       
     }
