@@ -7,43 +7,60 @@ import './scss/app.scss';
 import {setPizzas} from './redux/actions/pizzas'
 import {connect} from 'react-redux'
 import store from './redux/store';
-// function App() {
-//   const[pizzas, setPizzas] = React.useState([]);
-//   React.useEffect(() => {
-//   
-//   },[])
-//   return (
+import {useDispatch, useSelector} from 'react-redux'
+function App() {
+  const dispatch = useDispatch();
+  const {items} = useSelector(( {pizzas, filters}) => {
+    return {
+      items: pizzas.items,
+      sortBy: filters.sortBy 
+    }
+  });
  
-//   );
-// }
-
-class App extends React.Component {
-  componentDidMount() {
-    axios.get('http://localhost:3000/db.json').then(({data}) => {
-          this.props.setPizzas(data.pizzas)
+  React.useEffect(() => {
+      axios.get('http://localhost:3000/db.json').then(({data}) => {
+            dispatch(setPizzas(data.pizzas))
           })
-  }
-  render() {
-    return(
-    <div className="wrapper">
+  },[0])
+  return (
+     <div className="wrapper">
     <Header />
     <div className="content">
-      <Route path="/"   render={()=> <Home items={this.props.items}/>} exact/>
+      <Route path="/"   render={()=> <Home items={items}/>} exact/>
       <Route path="/cart"   component={Cart} exact/>
     </div>
-  </div>
-  )
-  }
+    </div>
+  );
 }
 
-const mapStateToProps = state => {
-  return {
-    items: state.pizzas.items,
-  }
-}
-const mapDispatchToProps = dispatch => {
-  return {
-    setPizzas: (items) => dispatch(setPizzas(items))
-  }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+// class App extends React.Component {
+//   componentDidMount() {
+//     axios.get('http://localhost:3000/db.json').then(({data}) => {
+//           this.props.setPizzas(data.pizzas)
+//           })
+//   }
+//   render() {
+//     return(
+//     <div className="wrapper">
+//     <Header />
+//     <div className="content">
+//       <Route path="/"   render={()=> <Home items={this.props.items}/>} exact/>
+//       <Route path="/cart"   component={Cart} exact/>
+//     </div>
+//   </div>
+//   )
+//   }
+// }
+export default App;
+// const mapStateToProps = state => {
+//   return {
+//     items: state.pizzas.items,
+//     filters: state.filters
+//   }
+// }
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     setPizzas: (items) => dispatch(setPizzas(items))
+//   }
+// }
+// export default connect(mapStateToProps,mapDispatchToProps)(App);
