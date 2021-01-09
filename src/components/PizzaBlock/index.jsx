@@ -1,6 +1,7 @@
 import React from 'react'
 import className from 'classnames'
 import PropTypes from 'prop-types'
+
 export default function PizzaBlock({name, imageUrl, types, sizes, price}) {
     const [activeType, setActiveType] = React.useState(types[0]);
     const [activeSize, setActiveSize] = React.useState(sizes[0]);
@@ -12,6 +13,8 @@ export default function PizzaBlock({name, imageUrl, types, sizes, price}) {
     const onSelectSize = (index) => {
         setActiveSize(index)
     }
+    
+
     return ( 
         <div className="pizza-block">
         <img
